@@ -4,7 +4,7 @@ Original dark fantasy lane strategy prototype inspired by Fort Conquer. Built wi
 
 ## Play locally
 
-Run `python3 -m http.server 4173 --directory dist` from this folder and open [http://localhost:4173.](https://emberfall-dragon-siege-vineet.mintycream3.chatgpt.site)
+Run `python3 -m http.server 4173 --directory dist` from this folder and open [open demo](https://emberfall-dragon-siege-vineet.mintycream3.chatgpt.site)
 
 Choose a creature, then click a lane to deploy. Keys 1–9, 0, minus, and equals select the twelve creatures. Arrow keys change the selected lane, Enter summons, F casts dragonfire, and Space pauses. Use role filters to find frontline, ranged, summoner, beast, or legendary creatures.
 
