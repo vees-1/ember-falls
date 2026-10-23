@@ -6,18 +6,42 @@ Original dark fantasy lane strategy prototype inspired by Fort Conquer. Built wi
 
 Run `python3 -m http.server 4173 --directory dist` from this folder and open http://localhost:4173.
 
-Choose one of five creatures, then click a lane to deploy. Keys 1–5 select, arrow keys change the selected lane, Enter summons, F casts dragonfire, and Space pauses. Destroy the opposing fort before your own falls. Essence regenerates; kills award essence. Evolution improves all existing and future allies. Enemy waves scale over time. Sound is optional.
+Choose a creature, then click a lane to deploy. Keys 1–9, 0, minus, and equals select the twelve creatures. Arrow keys change the selected lane, Enter summons, F casts dragonfire, and Space pauses. Use role filters to find frontline, ranged, summoner, beast, or legendary creatures.
+
+Destroy the opposing fort before your own falls. Essence regenerates at 12 per second; kills award essence based on enemy cost. Summoned wolves grant no essence. Evolution improves all existing and future allies. Enemy waves gradually introduce stronger units. Sound is optional.
+
+## Roster and tradeoffs
+
+| Creature | Tier | Essence | Health | Role |
+| --- | --- | ---: | ---: | --- |
+| Cinder Imp | Common | 18 | 50 | Cheap melee minion |
+| Bone Archer | Common | 35 | 65 | Fragile long-range support |
+| Thornhoof | Common | 50 | 160 | Satyr spearman |
+| Bramble Boar | Common | 65 | 290 | Durable beast, low damage, first charge bonus |
+| Frostfang | Mythic | 40 | 120 | Swift direwolf |
+| Sunclaw | Mythic | 70 | 180 | Griffin skirmisher |
+| Runestone | Mythic | 95 | 520 | Slow golem tank, low damage |
+| Rimewraith | Mythic | 130 | 210 | Ranged wyvern, slowing bolts |
+| Emberwing | Mythic | 180 | 300 | Slow dragon, splash damage |
+| Asterion | Legendary | 180 | 200 | Centaur marksman, 265 range, 22-second deployment cooldown |
+| Morrigan | Legendary | 200 | 190 | Weak direct attacks; summons one spirit wolf every 10 seconds, at most three living wolves per caller; 28-second deployment cooldown |
+| Beast of Gévaudan | Legendary | 240 | 600 | Melee ravager, first charge bonus, 30-second deployment cooldown |
+
+Charges require 80 paces of travel and only apply once per creature. Each side has a 45-creature limit. Ranged attacks travel as projectiles. Expensive ranged units need frontline protection.
 
 ## Verify
 
-`node --check dist/game.js`
-`node scripts/smoke-test.cjs`
+```sh
+node --check dist/creatures.js
+node --check dist/game.js
+node scripts/smoke-test.cjs
+```
 
-The smoke test checks deployment costs, evolution, dragonfire damage, pause, full combat to fort destruction, and restarting.
+The smoke test checks roster tiers, deployment costs/cooldowns, evolution, dragonfire, pause, projectile impact, summoning intervals/caps/replacements, minion reward rules, one-time charges, frost slow, unit limits, full battles, and restart.
 
 ## Prototype scope
 
-One battlefield, five creature classes, five escalating wave tiers, three evolution upgrades. Creatures currently use illustrated sprites with a floating movement animation, rather than full walking animation frames. Campaign progression, creature breeding, multiplayer, and saves are future work.
+One battlefield, twelve creature classes plus a summoned minion, five escalating wave tiers, and three evolution upgrades. Illustrated sprites have simple movement rather than full walking animation frames. Campaign progression, breeding, multiplayer, and saves are future work. Balance is an initial tuning pass and needs player feedback.
 
 ## Artwork
 

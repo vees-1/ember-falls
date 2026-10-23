@@ -35,3 +35,27 @@ Create a playable prototype inspired by Fort Conquer, with dragons, ancient myth
 
 ### Maintaining this log
 Append a dated entry for meaningful changes. Record the request, implementation, verification actually performed, and remaining limitations. Never include credentials, access tokens, or private authentication data.
+
+## 2026-10-23 — Expanded and rebalanced bestiary
+
+### Request
+Add ordinary mythical troops, melee and long-range roles, summoners, beasts, minions, and three legendaries including a centaur and the Beast of Gévaudan.
+
+### Implemented
+- Four common troops: Cinder Imp, Bone Archer, Thornhoof the satyr, and Bramble Boar.
+- Three legendaries: Asterion the centaur marksman, Morrigan the spirit summoner, and the Beast of Gévaudan.
+- Twelve selectable creatures plus a summoned spirit wolf, with original new atlas artwork.
+- Rebalanced the original five creatures: reduced damage/health where appropriate and increased dragon cost.
+- Traveling ranged projectiles, slowing frost bolts, and a one-time charge bonus after travel for boars and the Beast.
+- Timed summoning with three living wolves per caller, no recursive summons, no essence reward from summoned wolves, and a 45-unit limit per side.
+- Deployment cooldowns, longer legendary cooldowns, role filters, visible HP/range/rarity, cooldown feedback, and selected-creature descriptions.
+- Shared stats moved to dist/creatures.js; twelve keyboard selection shortcuts added.
+
+### Verification
+- JavaScript syntax checks and expanded deterministic smoke tests passed.
+- Tests cover all new combat mechanics, summon slot replacement, cooldowns, and full battle completion/restart.
+- Browser playtest verified role filtering, selecting/deploying Morrigan, cooldown feedback, and visible summoned spirit wolves.
+- Artwork and creature-card layout visually inspected and atlas source regions adjusted for readability.
+
+### Limits
+Illustrated sprites still use simple movement; costs and combat values are a first balance pass rather than a completed competitive balance study.
