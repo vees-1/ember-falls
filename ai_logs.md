@@ -1,10 +1,10 @@
 # Emberfall: Dragon Siege
 ## AI-Assisted Development Record and Prompt Register
 
-**Project:** Emberfall: Dragon Siege  
-**Record date:** 23 October 2026, Asia/Kolkata  
-**Current implementation:** Sounds of War, prototype v0.4  
-**Technology:** HTML, CSS, Canvas 2D, and Web Audio  
+**Project:** Emberfall: Dragon Siege<br>
+**Record date:** 23 October 2026, Asia/Kolkata<br>
+**Current implementation:** The Ashen Crown, prototype v0.5<br>
+**Technology:** HTML, CSS, Canvas 2D, and Web Audio<br>
 **Delivery:** Local Git repository and an owner-private Sites deployment
 
 ### Purpose and provenance
@@ -96,6 +96,14 @@ The visual direction uses ancient fortresses, a desolate battlefield, dragons, m
 
 **Implemented in v0.4:** This document; a complete twelve-card fullscreen deck; 23 original procedural sound cues; a looping battlefield ambience; audio controls and previews; and Mending Tide, a lane-healing spell with matching sound and visual feedback.
 
+### P09 — Original battle music and GitHub release polish
+
+**Professional brief**
+
+> Add an original melodic background score with the mood of a medieval creature-strategy battle. Complete the final presentation and documentation polish, remove the inspiration sentence from the README, and push the verified changes to the existing GitHub repository. Preserve the repository owner’s README edits and retain accurate setup, access, and verification instructions.
+
+**Implementation:** Confirmed the configured repository as `vees-1/ember-falls`, fetched and merged the owner’s README commits, separated hosted-preview access from local setup, and replaced the README with a release-oriented overview. Added *The Ashen Crown*, an original 48-second battle composition, independent music volume, an in-game preview, reproducible audio rendering, and composition/asset checks.
+
 ## 3. Implementation history
 
 | Version | Scope | Source evidence |
@@ -104,7 +112,8 @@ The visual direction uses ancient fortresses, a desolate battlefield, dragons, m
 | Documentation baseline | Agent guidance and initial AI development log | Commit `73cc7fa` |
 | v0.2 | Expanded and rebalanced bestiary | Commit `91fd63f` |
 | v0.3 | Immersive fullscreen and bottom deployment deck | Commit `d3bc198` |
-| v0.4 | Complete deck, procedural soundscape, healing, and professional documentation | Current release work; the release commit is created by the source packaging workflow |
+| v0.4 | Complete deck, procedural soundscape, healing, and professional documentation | Commit `2cd5fe8` |
+| v0.5 | Original melodic battle score, independent music mix, polished README, and GitHub synchronization | Current release; source commit recorded by Git and the publishing workflow |
 
 ### Architecture and responsibilities
 
@@ -227,11 +236,21 @@ The audio suite verifies 23 distinct cues, deterministic synthesis, finite PCM s
 
 - The prototype has one battlefield; campaign progression, saves, breeding, and multiplayer are not implemented.
 - Creature artwork uses static illustrations with simple movement rather than full animation frame sets.
-- The audio is original procedural sound design rather than recorded creature performances or an orchestral score.
+- The audio is original procedural sound design rather than recorded creature performances or sampled orchestral instruments.
 - Native fullscreen and audio activation remain subject to browser support and user-gesture policies. A fitted immersive window is provided when native fullscreen is unavailable.
 - Responsive layouts are implemented; physical mobile-device verification and subjective listening across speakers/headphones remain outstanding.
 - Future work should prioritize player balance feedback, richer animation, and a broader campaign before adding more unit complexity.
 
-## 9. Record maintenance
+## 9. Release polish: The Ashen Crown
+
+The new score is an original sixteen-bar composition at 80 BPM in D minor. A plucked ostinato supports a horn-like melody and sustained harmony, with low martial drums and restrained accents. Its 48-second rendered WAV is generated entirely from the source composition in `scripts/music-score.cjs`; no existing game soundtrack is copied or embedded.
+
+Music has its own saved gain control, alongside ambience and effects, and a twelve-second preview in the mixer. The README now leads with the game’s own identity, a hosted-preview link, a correct localhost quick start, controls, roster roles, music information, verification commands, and an architecture map. Historical prompt entries remain intact as provenance.
+
+Repository integration preserves the owner’s commits `ff4fa4f` and `15b9228` through a normal merge. The release uses the existing `main` branch and does not rewrite remote history or change the hosted Site’s access policy.
+
+Music verification includes non-silent output, headroom, populated and developing bars, valid WAV metadata, loop endpoints, and exact reproducibility from source. The procedural effects and gameplay suites remain part of the release checks. The in-app browser decoded the WAV successfully and reported non-zero output during the theme preview; its independent volume control was visible in the mixer. No browser console errors were reported in the checked session.
+
+## 10. Record maintenance
 
 Append a numbered prompt entry when the user provides a new task. Preserve prior intent and distinguish professionally edited prompts from exact executed asset prompts. Record only changes and checks that actually occurred. Keep secrets and unrelated personal data out of the repository. Update limitations when a feature is verified, deferred, or changed; do not silently describe planned work as completed.

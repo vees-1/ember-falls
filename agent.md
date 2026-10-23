@@ -1,7 +1,7 @@
 # Agent guide
 
 ## Project
-Emberfall: Dragon Siege is a playable dark fantasy lane strategy prototype inspired by Fort Conquer. Preserve its original branding and artwork.
+Emberfall: Dragon Siege is a playable dark fantasy lane strategy prototype. Preserve its original branding and artwork.
 
 ## Structure
 - `dist/index.html`: page structure and controls.
@@ -14,6 +14,9 @@ Emberfall: Dragon Siege is a playable dark fantasy lane strategy prototype inspi
 - `dist/assets/`: original battlefield and creature sprite atlas.
 - `scripts/smoke-test.cjs`: headless simulation smoke test using Node's built-in modules.
 - `scripts/audio-test.cjs`: deterministic PCM and ambience validation.
+- `scripts/music-score.cjs`: original 16-bar battle composition and instrument synthesis.
+- `scripts/render-music.cjs`: regenerates the committed WAV soundtrack.
+- `scripts/music-test.cjs`: checks composition signals and asset reproducibility.
 - `.openai/hosting.json`: existing Sites identity and static deployment configuration.
 - `ASSET-PROMPTS.md`: artwork generation prompts.
 - `ai_logs.md`: dated development history.
@@ -33,6 +36,7 @@ Open http://localhost:4173. Do not leave duplicate preview servers running.
 node --check dist/game.js
 node scripts/smoke-test.cjs
 node scripts/audio-test.cjs
+node scripts/music-test.cjs
 ```
 
 For gameplay or UI changes, playtest the relevant controls in a browser and inspect the rendered result. Describe verification limits accurately. Extend the smoke test when changing meaningful combat behavior; avoid tests that merely repeat implementation details.
@@ -49,4 +53,4 @@ For gameplay or UI changes, playtest the relevant controls in a browser and insp
 - Preserve the existing Sites project ID. Follow the Sites workflow for requested hosting changes; do not create a duplicate Site.
 
 ## Current scope
-One battlefield, three lanes, twelve selectable creatures plus spirit-wolf minions, rarity and role filters, projectiles, capped summoning, charge bonuses, deployment cooldowns, escalating enemy wave tiers, army evolution, and immersive fullscreen with an all-visible creature deck, themed audio, saved mixer controls, and lane healing. Campaign progression, breeding, multiplayer, saves, and full sprite animation are future work.
+One battlefield, three lanes, twelve selectable creatures plus spirit-wolf minions, rarity and role filters, projectiles, capped summoning, charge bonuses, deployment cooldowns, escalating enemy wave tiers, army evolution, and immersive fullscreen with an all-visible creature deck, themed audio, saved mixer controls, lane healing, and an original battle soundtrack. Campaign progression, breeding, multiplayer, saves, and full sprite animation are future work.

@@ -69,20 +69,20 @@
   if(typeof module!=='undefined'&&module.exports)module.exports=design;
   if(typeof window==='undefined')return;
   window.EmberSoundDesign=design;
-  let settings={enabled:true,master:.6,ambience:.45,effects:.8};
-  try{const saved=JSON.parse(localStorage.getItem('emberfall.audio.v1')||'null');if(saved){for(const key of ['master','ambience','effects'])if(Number.isFinite(saved[key]))settings[key]=clamp(saved[key],0,1);if(typeof saved.enabled==='boolean')settings.enabled=saved.enabled}}catch{}
-  let context,master,effects,bed,ambientSource,reverb,wet,analyser,levelData,activeBattle=false,lastBattle=false,activeVoices=0,available=true;
+  let settings={enabled:true,master:.6,ambience:.35,music:.42,effects:.8};
+  try{const saved=JSON.parse(localStorage.getItem('emberfall.audio.v1')||'null');if(saved){for(const key of ['master','ambience','music','effects'])if(Number.isFinite(saved[key]))settings[key]=clamp(saved[key],0,1);if(typeof saved.enabled==='boolean')settings.enabled=saved.enabled}}catch{}
+  let context,master,effects,bed,music,musicSource,musicPromise,musicPreview=false,previewTimer,ambientSource,reverb,wet,analyser,levelData,activeBattle=false,lastBattle=false,activeVoices=0,available=true;
   const buffers=new Map(),lastCue=new Map();
   const persist=()=>{try{localStorage.setItem('emberfall.audio.v1',JSON.stringify(settings))}catch{}};
   const notify=()=>document.dispatchEvent(new CustomEvent('emberfall:audio-state',{detail:{...settings,available,unlocked:context?.state==='running'}}));
   function ramp(param,value,time=.08){if(!context)return;param.cancelScheduledValues(context.currentTime);param.setTargetAtTime(value,context.currentTime,time)}
-  function mix(){if(!context)return;ramp(master.gain,settings.enabled&&!document.hidden?settings.master:0);ramp(effects.gain,settings.effects);ramp(bed.gain,activeBattle?settings.ambience:0,.35)}
+  function mix(){if(!context)return;ramp(master.gain,settings.enabled&&!document.hidden?settings.master:0);ramp(effects.gain,settings.effects);ramp(bed.gain,activeBattle?settings.ambience:0,.35);ramp(music.gain,activeBattle||musicPreview?settings.music:0,.4)}
   function makeBuffer(data){const b=context.createBuffer(1,data.length,RATE);b.getChannelData(0).set(data);return b}
   async function unlock(){
     try{
       if(!context){
         const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio){available=false;notify();return false}
-        context=new Audio();master=context.createGain();effects=context.createGain();bed=context.createGain();
+        context=new Audio();master=context.createGain();effects=context.createGain();bed=context.createGain();music=context.createGain();music.gain.value=0;music.connect(master);
         const compressor=context.createDynamicsCompressor();compressor.threshold.value=-12;compressor.knee.value=15;compressor.ratio.value=5;
         analyser=context.createAnalyser();analyser.fftSize=256;levelData=new Uint8Array(analyser.fftSize);master.connect(compressor);compressor.connect(analyser);analyser.connect(context.destination);effects.connect(master);bed.connect(master);
         reverb=context.createConvolver();wet=context.createGain();wet.gain.value=.15;
@@ -90,10 +90,26 @@
         for(let ch=0;ch<2;ch++){const channel=impulse.getChannelData(ch);for(let i=0;i<channel.length;i++)channel[i]=(Math.random()*2-1)*Math.pow(1-i/channel.length,3)*.45}
         reverb.buffer=impulse;effects.connect(reverb);reverb.connect(wet);wet.connect(master);
         master.gain.value=0;bed.gain.value=0;
-        ambientSource=context.createBufferSource();ambientSource.buffer=makeBuffer(ambience());ambientSource.loop=true;ambientSource.connect(bed);ambientSource.start();
+        ambientSource=context.createBufferSource();ambientSource.buffer=makeBuffer(ambience());ambientSource.loop=true;ambientSource.connect(bed);ambientSource.start();loadMusic().catch(()=>{musicPromise=null;notify()});
       }
       if(context.state==='suspended')await context.resume();mix();notify();return context.state==='running';
     }catch{available=false;notify();return false}
+  }
+  function loadMusic(){
+    if(musicSource)return Promise.resolve(true);
+    if(musicPromise)return musicPromise;
+    musicPromise=(async()=>{
+      const response=await fetch(new URL('assets/ashen-crown.wav',document.baseURI));
+      if(!response.ok)throw new Error('Battle theme unavailable');
+      const bytes=await response.arrayBuffer();
+      const buffer=await context.decodeAudioData(bytes);
+      musicSource=context.createBufferSource();musicSource.buffer=buffer;musicSource.loop=true;musicSource.connect(music);musicSource.start();mix();notify();return true;
+    })();
+    return musicPromise;
+  }
+  async function previewMusic(){
+    if(!await unlock())return false;
+    try{await loadMusic();musicPreview=true;clearTimeout(previewTimer);previewTimer=setTimeout(()=>{musicPreview=false;mix();notify()},12000);mix();notify();return true}catch{musicPromise=null;notify();return false}
   }
   function play(kind,position=.5){
     if(!settings.enabled||document.hidden||context?.state!=='running'||!lengths[kind]||settings.effects===0||activeVoices>=20)return false;
@@ -108,9 +124,9 @@
     activeVoices++;source.onended=()=>{activeVoices--;source.disconnect();gain.disconnect();pan?.disconnect()};source.start();return true;
   }
   async function toggle(){settings.enabled=!settings.enabled;persist();if(settings.enabled)await unlock();mix();notify();if(settings.enabled)play('magic');return settings.enabled}
-  function setVolume(channel,value){if(!['master','ambience','effects'].includes(channel))return;settings[channel]=clamp(Number(value)||0,0,1);persist();mix();notify()}
+  function setVolume(channel,value){if(!['master','ambience','music','effects'].includes(channel))return;settings[channel]=clamp(Number(value)||0,0,1);persist();mix();notify()}
   function setBattleState(running){if(lastBattle===Boolean(running))return;lastBattle=Boolean(running);activeBattle=lastBattle&&!document.hidden;mix()}
   document.addEventListener('visibilitychange',()=>{activeBattle=lastBattle&&!document.hidden;mix();notify()});
   function getLevel(){if(!analyser)return 0;analyser.getByteTimeDomainData(levelData);let energy=0;for(const n of levelData)energy+=((n-128)/128)**2;return Math.min(1,Math.sqrt(energy/levelData.length)*3)}
-  window.EmberAudio={unlock,play,toggle,setVolume,setBattleState,getLevel,getSettings:()=>({...settings,available,background:document.hidden,unlocked:context?.state==='running'})};
+  window.EmberAudio={unlock,play,previewMusic,toggle,setVolume,setBattleState,getLevel,getSettings:()=>({...settings,available,background:document.hidden,musicReady:Boolean(musicSource),musicPreview,unlocked:context?.state==='running'})};
 })();
