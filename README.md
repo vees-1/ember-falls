@@ -10,6 +10,12 @@ Choose a creature, then click a lane to deploy. Keys 1–9, 0, minus, and equals
 
 Destroy the opposing fort before your own falls. Essence regenerates at 12 per second; kills award essence based on enemy cost. Summoned wolves grant no essence. Evolution improves all existing and future allies. Enemy waves gradually introduce stronger units. Sound is optional.
 
+## Immersive fullscreen
+
+Click **Fullscreen** in the battlefield controls, or press **G**. The battlefield fills the screen and the twelve-creature deck stays along the bottom, alongside essence, army evolution, and dragonfire. Browse with deck arrows or horizontal scrolling, select a creature, then click a lane.
+
+Use **Exit**, **Escape**, or **G** to return to the page without restarting the battle. If native fullscreen is unavailable or blocked by an embedding browser, the same layout fills the browser window. Desktop Safari native fullscreen has been playtested.
+
 ## Roster and tradeoffs
 
 | Creature | Tier | Essence | Health | Role |

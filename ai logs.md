@@ -59,3 +59,27 @@ Add ordinary mythical troops, melee and long-range roles, summoners, beasts, min
 
 ### Limits
 Illustrated sprites still use simple movement; costs and combat values are a first balance pass rather than a completed competitive balance study.
+
+## 2026-10-23 — Immersive fullscreen and bottom creature deck
+
+### Request
+Add an immersive fullscreen play mode with creature selection from a bottom deck.
+
+### Implemented
+- Fullscreen/Exit control in the battlefield toolbar and G keyboard shortcut.
+- Native Fullscreen API support with a prefixed Safari path and a fitted browser-window fallback.
+- Screen-filling battlefield with a compact horizontal twelve-creature deck, role filters, essence, evolution, and dragonfire controls.
+- Deck navigation arrows, horizontal scrolling, and automatic reveal of selected creatures.
+- Exit/Escape handling that restores page view without resetting battle state.
+- Responsive portrait and short landscape layouts, safe-area padding, and accessible mode status.
+- Kept keyboard activation of ordinary controls from accidentally deploying troops or pausing the game.
+
+### Verification
+- Native fullscreen visually verified in desktop Safari, including live bottom-deck selection and deployment.
+- Browser playtest verified deck navigation, selecting the Beast of Gévaudan, exiting without resetting the timer, and G/Escape shortcuts.
+- No runtime errors reported in the browser playtest.
+- Existing combat smoke tests passed; JavaScript syntax checks passed.
+- Safari fullscreen screenshot saved as fullscreen-playtest.png.
+
+### Limits
+Native fullscreen depends on browser/context support; the fitted immersive window remains available when it cannot be entered. Mobile layout rules are implemented but have not been verified on physical mobile devices.

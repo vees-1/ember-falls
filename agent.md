@@ -5,7 +5,8 @@ Emberfall: Dragon Siege is a playable dark fantasy lane strategy prototype inspi
 
 ## Structure
 - `dist/index.html`: page structure and controls.
-- `dist/style.css`: responsive dark fantasy presentation.
+- `dist/style.css`: responsive dark fantasy presentation and immersive bottom-deck layout.
+- `dist/immersive.js`: native fullscreen/fallback view, deck navigation, and exit synchronization.
 - `dist/creatures.js`: shared creature definitions, rarity, costs, stats, abilities, and atlas regions.
 - `dist/game.js`: Canvas renderer, combat simulation, projectiles, summoning, inputs, and UI updates.
 - `dist/assets/`: original battlefield and creature sprite atlas.
@@ -44,4 +45,4 @@ For gameplay or UI changes, playtest the relevant controls in a browser and insp
 - Preserve the existing Sites project ID. Follow the Sites workflow for requested hosting changes; do not create a duplicate Site.
 
 ## Current scope
-One battlefield, three lanes, twelve selectable creatures plus spirit-wolf minions, rarity and role filters, projectiles, capped summoning, charge bonuses, deployment cooldowns, escalating enemy wave tiers, and army evolution. Campaign progression, breeding, multiplayer, saves, and full sprite animation are future work.
+One battlefield, three lanes, twelve selectable creatures plus spirit-wolf minions, rarity and role filters, projectiles, capped summoning, charge bonuses, deployment cooldowns, escalating enemy wave tiers, army evolution, and immersive fullscreen with a bottom creature deck. Campaign progression, breeding, multiplayer, saves, and full sprite animation are future work.
