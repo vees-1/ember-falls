@@ -35,7 +35,7 @@
     button.title = enabled ? 'Exit immersive view (Escape or G)' : 'Immersive fullscreen (G)';
     button.innerHTML = enabled ? '⛶ <span>Exit</span>' : '⛶ <span>Fullscreen</span>';
     status.textContent = enabled ? 'Immersive view. Select a creature in the bottom deck, then click a lane.' : 'Returned to page view. Your battle continues.';
-    if (enabled) requestFrame(revealSelection);
+    if (enabled) {document.querySelector('[data-filter="all"]').click();requestFrame(revealSelection);}
     else { nativeEntered = false; window.scrollTo(0, previousScroll); }
   }
 
@@ -73,7 +73,7 @@
   document.addEventListener('webkitfullscreenchange', onFullscreenChange);
   document.addEventListener('keydown', event => {
     if (event.ctrlKey || event.metaKey || event.altKey || event.repeat) return;
-    if (document.querySelector('#modal').open) return;
+    if (document.querySelector('#modal').open || document.querySelector('#audio-modal').open) return;
     if (event.key.toLowerCase() === 'g') { event.preventDefault(); toggleImmersive(); }
     else if (event.key === 'Escape' && immersive) toggleImmersive();
     else if (immersive) requestFrame(revealSelection);

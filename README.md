@@ -12,9 +12,15 @@ Destroy the opposing fort before your own falls. Essence regenerates at 12 per s
 
 ## Immersive fullscreen
 
-Click **Fullscreen** in the battlefield controls, or press **G**. The battlefield fills the screen and the twelve-creature deck stays along the bottom, alongside essence, army evolution, and dragonfire. Browse with deck arrows or horizontal scrolling, select a creature, then click a lane.
+Click **Fullscreen** in the battlefield controls, or press **G**. The battlefield fills the screen and the twelve-creature deck stays along the bottom, alongside essence, army evolution, and dragonfire. All twelve creatures are visible at once: one row on wide desktops and two rows on narrower screens. Select a creature, then click a lane.
 
 Use **Exit**, **Escape**, or **G** to return to the page without restarting the battle. If native fullscreen is unavailable or blocked by an embedding browser, the same layout fills the browser window. Desktop Safari native fullscreen has been playtested.
+
+## Battlefield sound and healing
+
+Original procedural audio includes dragon roars, beast calls, arcane and healing chimes, combat impacts, and a looping wind/drone/war-drum ambience. Audio starts with the siege. Use ♫ to mute or ⚙ to adjust master, ambience, and effects volume; settings are saved locally. The audio dialog pauses and resumes your battle, and offers sound previews. Audio fades while paused or in a background tab.
+
+Press H or click Mending Tide to heal wounded allies in the selected lane by up to 90 health each. The spell costs 90 essence, has a 35-second cooldown, cannot overheal or revive, and does not spend resources if no allies need healing.
 
 ## Roster and tradeoffs
 
@@ -40,7 +46,10 @@ Charges require 80 paces of travel and only apply once per creature. Each side h
 ```sh
 node --check dist/creatures.js
 node --check dist/game.js
+node --check dist/audio.js
+node --check dist/audio-ui.js
 node scripts/smoke-test.cjs
+node scripts/audio-test.cjs
 ```
 
 The smoke test checks roster tiers, deployment costs/cooldowns, evolution, dragonfire, pause, projectile impact, summoning intervals/caps/replacements, minion reward rules, one-time charges, frost slow, unit limits, full battles, and restart.
@@ -48,6 +57,10 @@ The smoke test checks roster tiers, deployment costs/cooldowns, evolution, drago
 ## Prototype scope
 
 One battlefield, twelve creature classes plus a summoned minion, five escalating wave tiers, and three evolution upgrades. Illustrated sprites have simple movement rather than full walking animation frames. Campaign progression, breeding, multiplayer, and saves are future work. Balance is an initial tuning pass and needs player feedback.
+
+## Development record
+
+See [ai_logs.md](ai_logs.md) for the professional prompt register, architecture decisions, release history, sound-design brief, verification evidence, and limitations.
 
 ## Artwork
 
